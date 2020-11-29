@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.mynotes.databinding.FragmentNotesListBinding
 
@@ -24,12 +25,13 @@ class NotesListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var viewModel: NoteViewModel
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentNotesListBinding>(inflater, R.layout.fragment_notes_list, container, false)
 
@@ -37,6 +39,7 @@ class NotesListFragment : Fragment() {
             view.findNavController().navigate(R.id.action_notesListFragment_to_addNoteFragment)
         }
 
+        viewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
 
         return  binding.root
     }
