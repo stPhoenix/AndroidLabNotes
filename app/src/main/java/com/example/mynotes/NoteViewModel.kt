@@ -9,13 +9,22 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
-class NoteViewModel(val database: NotesDatabaseDao, application: Application): AndroidViewModel(application) {
+class NoteViewModel(private val database: NotesDatabaseDao, application: Application): AndroidViewModel(application) {
     val notes = database.get_all()
 
-    private suspend fun insert(note:Note)
+    suspend fun insert(note:Note)
     {
         database.insert(note)
     }
 
+    suspend fun delete(note: Note)
+    {
+        database.delete(note)
+    }
+
+    suspend fun update(note: Note)
+    {
+        database.update(note)
+    }
 
 }

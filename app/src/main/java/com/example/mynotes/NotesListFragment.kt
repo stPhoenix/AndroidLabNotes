@@ -1,15 +1,20 @@
 package com.example.mynotes
 
 import android.os.Bundle
+import android.util.Log
+import android.util.Log.DEBUG
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.example.mynotes.databinding.FragmentNotesListBinding
+import kotlinx.coroutines.launch
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,12 +51,18 @@ class NotesListFragment : Fragment() {
         binding.setLifecycleOwner(this)
         binding.notesViewModel = viewModel
 
-        val adapter = NoteAdapter()
+        val adapter = NoteAdapter(NoteListener { note ->
+            viewModel.viewModelScope.launch { viewModel.delete(note) }
+            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show() },
+                                  NoteListener { note ->
+                                      viewModel.viewModelScope.launch { viewModel.update(note) }
+                                      Log.d("LIST FRAGMENT", "Updated")
+                                      Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()})
         binding.notesList.adapter = adapter
 
         viewModel.notes.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                adapter.submitList(it)
             }
         })
 
