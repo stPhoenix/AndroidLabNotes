@@ -1,23 +1,24 @@
 package com.example.mynotes
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
 interface NotesDatabaseDao {
     @Insert
-    fun insert(note: Note)
+    suspend fun insert(note: Note)
 
     @Update
-    fun update(note: Note)
+    suspend fun update(note: Note)
 
     @Query("SELECT * FROM notes_table WHERE noteId = :key")
-    fun get(key: Long): Note?
+    suspend fun get(key: Long): Note?
 
     @Query("SELECT * FROM notes_table")
-    fun get_all():List<Note>
+    fun get_all():LiveData<List<Note>>
 
     @Delete
-    fun delete(key: Long)
+    suspend fun delete(note: Note)
 
 
 }

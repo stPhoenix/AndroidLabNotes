@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.mynotes.databinding.FragmentNotesListBinding
@@ -16,11 +17,7 @@ import com.example.mynotes.databinding.FragmentNotesListBinding
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [NotesListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class NotesListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -39,7 +36,24 @@ class NotesListFragment : Fragment() {
             view.findNavController().navigate(R.id.action_notesListFragment_to_addNoteFragment)
         }
 
-        viewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        val dataSource = NoteDatabase.getInstance(application).notesDatabaseDao
+
+        val viewModelFactory = NoteViewModelFactory(dataSource, application)
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NoteViewModel::class.java)
+
+        binding.setLifecycleOwner(this)
+        binding.notesViewModel = viewModel
+
+        val adapter = NoteAdapter()
+        binding.notesList.adapter = adapter
+
+        viewModel.notes.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+            }
+        })
 
         return  binding.root
     }
