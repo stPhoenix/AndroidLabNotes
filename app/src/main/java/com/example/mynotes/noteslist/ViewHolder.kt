@@ -1,7 +1,6 @@
-package com.example.mynotes
+package com.example.mynotes.noteslist
 
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotes.databinding.TextViewItemBinding
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".AddNoteFragment">
+    tools:context=".addnote.AddNoteFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_marginBottom="15dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Title" />
+            android:text="@string/title" />
 
         <EditText
             android:id="@+id/noteText"
@@ -23,13 +23,13 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Note text"
+            android:hint="@string/note_text"
             android:inputType="textMultiLine" />
 
         <Button
             android:id="@+id/buttonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:text="@string/save" />
     </LinearLayout>
 </layout>

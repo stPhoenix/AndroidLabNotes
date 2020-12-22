@@ -1,8 +1,7 @@
-package com.example.mynotes
+package com.example.mynotes.noteslist
 
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.DEBUG
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +12,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
+import com.example.mynotes.*
 import com.example.mynotes.databinding.FragmentNotesListBinding
+import com.example.mynotes.note.NoteDatabase
 import kotlinx.coroutines.launch
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
 class NotesListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var viewModel: NoteViewModel
 
 
@@ -48,7 +40,7 @@ class NotesListFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(NoteViewModel::class.java)
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         binding.notesViewModel = viewModel
 
         val adapter = NoteAdapter(NoteListener { note ->

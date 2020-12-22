@@ -1,10 +1,9 @@
-package com.example.mynotes
+package com.example.mynotes.note
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import java.security.AccessControlContext
 
 @Database(entities = [Note::class], version = 1, exportSchema = false)
 abstract class NoteDatabase: RoomDatabase() {

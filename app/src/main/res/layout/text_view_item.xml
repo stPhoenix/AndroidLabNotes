@@ -3,10 +3,10 @@
 <data>
     <variable
         name="note"
-        type="com.example.mynotes.Note" />
+        type="com.example.mynotes.note.Note" />
     <variable
         name="clickListener"
-        type="com.example.mynotes.NoteListener" />
+        type="com.example.mynotes.noteslist.NoteListener" />
 </data>    
 
 <LinearLayout 
@@ -20,7 +20,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textSize="24sp"
-        android:text="Title"
+        android:text="@string/title"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -31,7 +31,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textSize="24sp"
-        android:text="TextView" />
+        android:text="@string/date" />
 
     <EditText
         android:id="@+id/note_text"
@@ -40,7 +40,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textSize="24sp"
-        android:text="TextView"
+        android:text="@string/note_text"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine" />
@@ -49,7 +49,7 @@
         android:id="@+id/buttonDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete"
+        android:text="@string/delete"
         android:onClick="@{() -> clickListener.onClick(note)}"/>
 
 
